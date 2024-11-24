@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Purrfect Pedia</title>
+</head>
+<body>
+    <h1>Purrfect Pedia</h1>
+    <p>The ultimate encyclopedia for cat lovers! Browse through an extensive collection of cat breeds, complete with adorable pictures and fascinating details.</p>
+
+    <div id="cat-breeds"></div>
+
+    <script>
+        // Fetch cat breeds from the server
+        fetch('/breeds')  // No need for 'http://localhost:4000' since it's on the same server
+            .then(response => response.json())
+            .then(data => {
+                const catBreedsDiv = document.getElementById('cat-breeds');
+                data.forEach(breed => {
+                    const breedDiv = document.createElement('div');
+                    breedDiv.innerHTML = `
+                        <h2>${breed.name}</h2>
+                        <p>${breed.description || 'No description available.'}</p>
+                        <img src="${breed.image_url}" alt="${breed.name}" style="width: 200px; height: auto;">
+                    `;
+                    catBreedsDiv.appendChild(breedDiv);
+                });
+            })
+            .catch(error => console.error('Error fetching data:', error));
+    </script>
+</body>
+</html>
