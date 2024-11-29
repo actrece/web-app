@@ -1,12 +1,12 @@
 const express = require('express');
 const sqlite3 = require('sqlite3').verbose();
 const bodyParser = require('body-parser');
-const itemRoutes = require('./controllers/routes/itemRoutes');
+const itemRoutes = require('./controllers/routes/itemRoutes'); // Make sure this path is correct
 const axios = require('axios');
 const path = require('path');
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 4000; // Change the port to 4000
 
 // Middleware
 app.use(bodyParser.json());
