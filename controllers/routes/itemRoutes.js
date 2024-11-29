@@ -1,12 +1,21 @@
 const express = require('express');
-const router = express.Router();
-const itemController = require('../controllers/itemController');
+const itemController = require('../controllers/itemController'); // This path should be correct
 
-// Define routes
-router.get('/items', itemController.getItems);
-router.get('/items/:id', itemController.getItem);
-router.post('/items', itemController.createItem);
-router.put('/items/:id', itemController.updateItem);
-router.delete('/items/:id', itemController.deleteItem);
+const router = express.Router();
+
+// Route to get all items
+router.get('/', itemController.getAllItems);
+
+// Route to get an item by its ID
+router.get('/:id', itemController.getItemById);
+
+// Route to add a new item
+router.post('/', itemController.addItem);
+
+// Route to update an existing item by its ID
+router.put('/:id', itemController.updateItem);
+
+// Route to delete an item by its ID
+router.delete('/:id', itemController.deleteItem);
 
 module.exports = router;

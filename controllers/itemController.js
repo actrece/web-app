@@ -1,22 +1,87 @@
-// routes/itemRoutes.js
-const express = require('express');
-const itemController = require('../controllers/itemController');
+const db = require('../index'); // assuming the db connection is exported from index.js
 
-const router = express.Router();
+// Controller to get all items
+const getItems = (req, res) => {
+    db.all("SELECT * FROM items", (err, rows) => {
+        if (err) {
+            res.status(500).json({ error: err.message });
+            return;
+        }
+        res.json({ items: rows });
+    });
+};
 
-// Route to get all items
-router.get('/', itemController.getAllItems);
+// Controller to get an item by ID
+const getItem = (req, res) => {
+    const { id } = req.params;
+    db.get("SELECT * FROM items WHERE id = ?", [id], (err, row) => {
+        if (err) {
+            res.status(500).json({ error: err.message });
+            return;
+        }
+        if (!row) {
+            res.status(404).json({ message: 'Item not found' });
+            return;
+        }
+        res.json({ item: row });
+    });
+};
 
-// Route to get an item by its ID
-router.get('/:id', itemController.getItemById);
+// Controller to create a new item
+const createItem = (req, res) => {
+    const { name, description } = req.body;
+    const stmt = db.prepare("INSERT INTO items (name, description) VALUES (?, ?)");
+    stmt.run(name, description, function(err) {
+        if (err) {
+            res.status(500).json({ error: err.message });
+            return;
+        }
+        res.status(201).json({ id: this.lastID, name, description });
+    });
+    stmt.finalize();
+};
 
-// Route to add a new item
-router.post('/', itemController.addItem);
+// Controller to update an existing item by ID
+const updateItem = (req, res) => {
+    const { id } = req.params;
+    const { name, description } = req.body;
+    const stmt = db.prepare("UPDATE items SET name = ?, description = ? WHERE id = ?");
+    stmt.run(name, description, id, function(err) {
+        if (err) {
+            res.status(500).json({ error: err.message });
+            return;
+        }
+        if (this.changes === 0) {
+            res.status(404).json({ message: 'Item not found' });
+            return;
+        }
+        res.json({ id, name, description });
+    });
+    stmt.finalize();
+};
 
-// Route to update an existing item by its ID
-router.put('/:id', itemController.updateItem);
+// Controller to delete an item by ID
+const deleteItem = (req, res) => {
+    const { id } = req.params;
+    const stmt = db.prepare("DELETE FROM items WHERE id = ?");
+    stmt.run(id, function(err) {
+        if (err) {
+            res.status(500).json({ error: err.message });
+            return;
+        }
+        if (this.changes === 0) {
+            res.status(404).json({ message: 'Item not found' });
+            return;
+        }
+        res.json({ message: `Item with id ${id} deleted` });
+    });
+    stmt.finalize();
+};
 
-// Route to delete an item by its ID
-router.delete('/:id', itemController.deleteItem);
-
-module.exports = router;
+module.exports = {
+    getItems,
+    getItem,
+    createItem,
+    updateItem,
+    deleteItem
+};
