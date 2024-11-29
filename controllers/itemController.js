@@ -1,64 +1,22 @@
-const Item = require('../models/item');
+// routes/itemRoutes.js
+const express = require('express');
+const itemController = require('../controllers/itemController');
 
-// Get all items
-const getItems = (req, res) => {
-    Item.getAllItems((err, items) => {
-        if (err) {
-            return res.status(500).json({ error: err.message });
-        }
-        res.json(items);
-    });
-};
+const router = express.Router();
 
-// Get a single item
-const getItem = (req, res) => {
-    const { id } = req.params;
-    Item.getItemById(id, (err, item) => {
-        if (err || !item) {
-            return res.status(404).json({ error: 'Item not found' });
-        }
-        res.json(item);
-    });
-};
+// Route to get all items
+router.get('/', itemController.getAllItems);
 
-// Add new item
-const createItem = (req, res) => {
-    const { name, description } = req.body;
-    Item.addItem(name, description, (err, id) => {
-        if (err) {
-            return res.status(500).json({ error: err.message });
-        }
-        res.status(201).json({ id, name, description });
-    });
-};
+// Route to get an item by its ID
+router.get('/:id', itemController.getItemById);
 
-// Update item
-const updateItem = (req, res) => {
-    const { id } = req.params;
-    const { name, description } = req.body;
-    Item.updateItem(id, name, description, (err) => {
-        if (err) {
-            return res.status(500).json({ error: err.message });
-        }
-        res.status(200).json({ message: 'Item updated' });
-    });
-};
+// Route to add a new item
+router.post('/', itemController.addItem);
 
-// Delete item
-const deleteItem = (req, res) => {
-    const { id } = req.params;
-    Item.deleteItem(id, (err) => {
-        if (err) {
-            return res.status(500).json({ error: err.message });
-        }
-        res.status(200).json({ message: 'Item deleted' });
-    });
-};
+// Route to update an existing item by its ID
+router.put('/:id', itemController.updateItem);
 
-module.exports = {
-    getItems,
-    getItem,
-    createItem,
-    updateItem,
-    deleteItem
-};
+// Route to delete an item by its ID
+router.delete('/:id', itemController.deleteItem);
+
+module.exports = router;
