@@ -1,7 +1,7 @@
 const express = require('express');
 const sqlite3 = require('sqlite3').verbose();
 const bodyParser = require('body-parser');
-const itemRoutes = require('./routes/itemRoutes'); // Modularized route handling
+const itemRoutes = require('./controllers/routes/itemRoutes');
 const axios = require('axios');
 const path = require('path');
 
