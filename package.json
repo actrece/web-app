@@ -1,17 +1,16 @@
 {
-  "name": "purrfect-pedia",
+  "name": "pururrfect-pedia",
   "version": "1.0.0",
-  "description": "A Node.js web application for managing a collection of cat breeds.",
+  "description": "A cat breeds informational app powered by TheCatAPI.",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
   },
   "dependencies": {
-    "express": "^4.17.1",
-    "sqlite3": "^5.1.4",
-    "body-parser": "^1.19.0"
-  },
-  "devDependencies": {},
-  "author": "",
-  "license": "ISC"
+    "express": "^4.21.1",
+    "sqlite3": "^5.1.7",
+    "axios": "^1.3.0",
+    "body-parser": "^1.20.1",
+    "path": "^0.12.7"
+  }
 }

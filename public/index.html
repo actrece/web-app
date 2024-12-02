@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Purrfect Pedia</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Purrfect Pedia</h1>
+        <p>Welcome to the ultimate cat breed encyclopedia!</p>
+    </header>
+    <main>
+        <section id="breeds">
+            <h2>Cat Breeds</h2>
+            <div id="breed-list">
+                <!-- Breed cards will be dynamically added here -->
+            </div>
+        </section>
+        <button id="add-breed-button">Add New Breed</button>
+    </main>
+    <footer>
+        <p>Powered by Purrfect Pedia</p>
+    </footer>
+
+    <!-- Modal for adding/editing breeds -->
+    <div id="modal" class="hidden">
+        <div class="modal-content">
+            <span id="close-modal">&times;</span>
+            <h2 id="modal-title">Add/Edit Breed</h2>
+            <form id="breed-form">
+                <label for="name">Breed Name:</label>
+                <input type="text" id="name" name="name" required>
+                
+                <label for="description">Description:</label>
+                <textarea id="description" name="description"></textarea>
+                
+                <label for="origin">Origin:</label>
+                <input type="text" id="origin" name="origin" required>
+                
+                <label for="image-url">Image URL:</label>
+                <input type="url" id="image-url" name="image-url" required>
+                
+                <button type="submit">Save</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
