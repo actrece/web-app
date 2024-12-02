@@ -1,5 +1,5 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: Century 'Franklin Gothic Medium', sans-serif;
     margin: 0;
     padding: 0;
     background-color: #f8f9fa;
@@ -7,7 +7,7 @@ body {
 }
 
 .container {
-    width: 90%;
+    width: 80%;
     max-width: 800px;
     margin: 0 auto;
     padding: 20px;
@@ -22,18 +22,14 @@ header {
 }
 
 header h1 {
-    font-size: 2em;
-    color: #007BFF;
+    font-size: 2.3em;
+    color: #ff6a80;
+    
 }
 
 header p {
-    font-size: 1.2em;
-    color: #555;
-}
-
-h2 {
-    color: #333;
-    margin-bottom: 10px;
+    font-size: 1em;
+    color: #ffb6c1;
 }
 
 .form-container {
@@ -58,14 +54,14 @@ form input, form textarea, form button {
 }
 
 form button {
-    background-color: #007BFF;
+    background-color: #ffb6c1;
     color: #fff;
     border: none;
     cursor: pointer;
 }
 
 form button:hover {
-    background-color: #0056b3;
+    background-color: #ff6a80;
 }
 
 table {
@@ -75,13 +71,13 @@ table {
 }
 
 table th, table td {
-    border: 1px solid #ddd;
+    border: 1px solid #ffffff;
     padding: 10px;
     text-align: left;
 }
 
 table th {
-    background-color: #007BFF;
+    background-color: #ffb6c1;
     color: white;
 }
 
