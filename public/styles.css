@@ -1,9 +1,10 @@
 body {
-    font-family: 'Franklin Gothic Medium', sans-serif;
+    font-family: 'century', sans-serif;
     margin: 0;
     padding: 0;
     background-color: #f8f9fa;
     color: #333;
+    font-weight: 100;
 }
 
 .container {
@@ -44,23 +45,32 @@ form label {
     margin: 10px 0 5px;
 }
 
-form input, form textarea, form button {
-    width: 95%; 
-    padding: 10px;
-    margin-bottom: 1px;
+form input, form textarea {
+    width: 95%;
+    padding: 12px;
+    margin-bottom: 20px; 
     border: 2px solid #ffb6c1;
     border-radius: 5px;
-    
+    box-sizing: border-box; 
+    font-size: 1em; 
+    font-weight: 100;
 }
 
 form button {
-    width: 15%;
+    border-radius: 5px;
+    width: 30%; 
+    padding: 12px;
     background-color: #ffb6c1;
     color: #fff;
     border: none;
     cursor: pointer;
     font-size: 1.1em;
     margin-top: 20px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: 'century', sans-serif;
+    font-weight: 100;
 }
 
 form button:hover {
@@ -74,9 +84,11 @@ table {
 }
 
 table th, table td {
-    border: 1px solid #ddd;
-    padding: 10px;
+    border: 1px solid #ffffff;
+    padding: 12px;
     text-align: left;
+    font-size: 1em; 
+    font-weight: 100;
 }
 
 table th {

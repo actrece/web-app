@@ -11,6 +11,12 @@ document.addEventListener("DOMContentLoaded", () => {
         const description = document.getElementById("description").value;
         const origin = document.getElementById("origin").value;
 
+        // Check if values are not empty
+        if (!breedName || !description || !origin) {
+            alert("Please fill out all fields.");
+            return;
+        }
+
         // Add a new row to the table
         const row = document.createElement("tr");
         row.innerHTML = `
