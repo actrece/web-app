@@ -46,7 +46,7 @@ form label {
 }
 
 form input, form textarea {
-    width: 95%;
+    width: 100%;
     padding: 12px;
     margin-bottom: 20px; 
     border: 2px solid #ffb6c1;
