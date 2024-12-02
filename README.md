@@ -1,19 +1,27 @@
 # Purrfect Pedia
 
-Purrfect Pedia is a Node.js web application for managing a collection of cat breeds. The app uses an SQLite database to store cat breed details, including names, descriptions, and images.
-
-## Getting Started
-
-1. Clone this repository.
-2. Run `npm install` to install dependencies.
-3. Start the server with `npm start`.
-4. Visit `http://localhost:4000` to use the app.
+Purrfect Pedia is a Node.js web application for managing a collection of cat breeds. The app uses an SQLite database to store cat breed details, including names, descriptions, and how many there are in the world. The application allows users to perform CRUD (Create, Read, Update, Delete) operations on the cat breeds' data.
 
 ## Features
 
-- CRUD operations for cat breeds.
-- Displays a list of items and details on a web interface.
+- View a list of cat breeds.
+- Add new cat breeds to the collection.
+- Edit existing cat breed information.
+- Delete cat breeds from the collection.
 
-## Deployment
+## Technologies Used
 
-The app is hosted on Render. Visit [Render link] for access.
+- **Node.js**: The runtime environment for running the application.
+- **Express**: A web framework for Node.js.
+- **SQLite3**: A lightweight database used to store cat breed data.
+- **Body-Parser**: Middleware to parse incoming request bodies.
+
+## Installation
+
+To run this application locally, follow these steps:
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/yourusername/web-app.git
+cd web-app
