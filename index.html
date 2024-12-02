@@ -4,32 +4,78 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Purrfect Pedia</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/style.css">
 </head>
 <body>
-    <header>
-        Purrfect Pedia
-    </header>
-    <main>
-        <h1>Cat Breeds</h1>
-        <div id="breed-list">
-            <!-- Dynamic content will be loaded here -->
-        </div>
-        <button id="add-breed-btn">Add New Breed</button>
-    </main>
+    <div class="container">
+        <h1>Purrfect Pedia</h1>
+        <form id="breed-form">
+            <input type="text" id="name" placeholder="Breed Name" required>
+            <textarea id="description" placeholder="Breed Description" required></textarea>
+            <input type="number" id="population" placeholder="Population in the world" required>
+            <button type="submit">Add Breed</button>
+        </form>
+
+        <h2>Cat Breeds</h2>
+        <table id="breeds-table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Population</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Dynamic breed rows will go here -->
+            </tbody>
+        </table>
+    </div>
+
     <script>
+        // Fetch existing breeds and display them
         fetch('/breeds')
-            .then(res => res.json())
+            .then(response => response.json())
             .then(data => {
-                const breedList = document.getElementById('breed-list');
-                breedList.innerHTML = data.map(breed => `
-                    <div>
-                        <h2>${breed.name}</h2>
-                        <p>${breed.description}</p>
-                        <p>Population: ${breed.population}</p>
-                    </div>
-                `).join('');
+                const tableBody = document.querySelector('#breeds-table tbody');
+                data.forEach(breed => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${breed.name}</td>
+                        <td>${breed.description}</td>
+                        <td>${breed.population}</td>
+                    `;
+                    tableBody.appendChild(row);
+                });
             });
+
+        // Handle form submission to add new breed
+        document.getElementById('breed-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const description = document.getElementById('description').value;
+            const population = document.getElementById('population').value;
+
+            fetch('/breeds', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, description, population })
+            })
+            .then(response => response.json())
+            .then(breed => {
+                const tableBody = document.querySelector('#breeds-table tbody');
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${breed.name}</td>
+                    <td>${breed.description}</td>
+                    <td>${breed.population}</td>
+                `;
+                tableBody.appendChild(row);
+
+                // Clear form after submission
+                document.getElementById('breed-form').reset();
+            });
+        });
     </script>
 </body>
 </html>
