@@ -15,26 +15,24 @@
         </header>
 
         <!-- Form Section -->
-        <section id="add-breed">
+        <section id="breed-form-section">
             <h2>Add New Breed</h2>
-            <div class="form-container">
-                <form id="breed-form">
-                    <label for="name">Breed Name:</label>
-                    <input type="text" id="name" name="name" required>
+            <form id="breed-form">
+                <label for="breed-name">Breed Name:</label>
+                <input type="text" id="breed-name" name="breed-name" placeholder="Enter breed name" required>
 
-                    <label for="description">Description:</label>
-                    <textarea id="description" name="description" rows="3"></textarea>
+                <label for="description">Description:</label>
+                <textarea id="description" name="description" placeholder="Enter description"></textarea>
 
-                    <label for="origin">Origin:</label>
-                    <input type="text" id="origin" name="origin" required>
+                <label for="origin">Origin:</label>
+                <input type="text" id="origin" name="origin" placeholder="Enter origin" required>
 
-                    <button type="submit">Save</button>
-                </form>
-            </div>
+                <button type="submit" id="save-breed-btn">Save</button>
+            </form>
         </section>
 
-        <!-- Display Section -->
-        <section id="breeds">
+        <!-- Table Section -->
+        <section id="breed-table-section">
             <h2>Cat Breeds</h2>
             <table id="breed-table">
                 <thead>
@@ -42,7 +40,6 @@
                         <th>Breed Name</th>
                         <th>Description</th>
                         <th>Origin</th>
-                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -51,6 +48,7 @@
             </table>
         </section>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>
