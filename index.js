@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const path = require('path');
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000; // Use environment variable for Render or fallback to 3000 locally
 
 // Middleware
 app.use(bodyParser.json());
@@ -51,6 +51,9 @@ app.post('/breeds', (req, res) => {
         }
     });
 });
+
+// Serve static files (CSS)
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Start the server
 app.listen(port, () => {

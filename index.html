@@ -56,26 +56,20 @@
             const description = document.getElementById('description').value;
             const population = document.getElementById('population').value;
 
-            fetch('/breeds', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ name, description, population })
-            })
-            .then(response => response.json())
-            .then(breed => {
-                const tableBody = document.querySelector('#breeds-table tbody');
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${breed.name}</td>
-                    <td>${breed.description}</td>
-                    <td>${breed.population}</td>
-                `;
-                tableBody.appendChild(row);
-
-                // Clear form after submission
-                document.getElementById('breed-form').reset();
-            });
+            fetch('/breeds')
+    .then(response => response.json())
+    .then(data => {
+        const tableBody = document.querySelector('#breeds-table tbody');
+        data.forEach(breed => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${breed.name}</td>
+                <td>${breed.description}</td>
+                <td>${breed.population}</td>
+            `;
+            tableBody.appendChild(row);
         });
+    });
     </script>
 </body>
 </html>
