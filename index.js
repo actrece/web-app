@@ -26,8 +26,7 @@ db.serialize(() => {
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             name TEXT NOT NULL,
             description TEXT NOT NULL,
-            origin TEXT NOT NULL,
-            image_url TEXT NOT NULL
+            origin TEXT NOT NULL
         )
     `);
 });
@@ -50,14 +49,14 @@ app.get('/breeds', (req, res) => {
 
 // API endpoint to add a new breed
 app.post('/breeds', (req, res) => {
-    const { name, description, origin, image_url } = req.body;
+    const { name, description, origin } = req.body;
 
-    if (!name || !origin || !image_url) {
-        return res.status(400).send('Name, origin, and image_url are required.');
+    if (!name || !origin) {
+        return res.status(400).send('Name and origin are required.');
     }
 
-    const stmt = db.prepare('INSERT INTO breeds (name, description, origin, image_url) VALUES (?, ?, ?, ?)');
-    stmt.run(name, description || '', origin, image_url, function (err) {
+    const stmt = db.prepare('INSERT INTO breeds (name, description, origin) VALUES (?, ?, ?)');
+    stmt.run(name, description || '', origin, function (err) {
         if (err) {
             res.status(500).send('Error adding breed');
         } else {
@@ -65,57 +64,8 @@ app.post('/breeds', (req, res) => {
                 id: this.lastID,
                 name,
                 description,
-                origin,
-                image_url
+                origin
             });
-        }
-    });
-});
-
-// API endpoint to update an existing breed (full update)
-app.put('/breeds/:id', (req, res) => {
-    const { id } = req.params;
-    const { name, description, origin, image_url } = req.body;
-
-    if (!name || !origin || !image_url) {
-        return res.status(400).send('Name, origin, and image_url are required.');
-    }
-
-    const stmt = db.prepare('UPDATE breeds SET name = ?, description = ?, origin = ?, image_url = ? WHERE id = ?');
-    stmt.run(name, description || '', origin, image_url, id, function (err) {
-        if (err) {
-            res.status(500).send('Error updating breed');
-        } else if (this.changes === 0) {
-            res.status(404).send('Breed not found');
-        } else {
-            res.json({ id, name, description, origin, image_url });
-        }
-    });
-});
-
-// API endpoint to partially update an existing breed
-app.patch('/breeds/:id', (req, res) => {
-    const { id } = req.params;
-    const fields = req.body;
-    const validFields = ['name', 'description', 'origin', 'image_url'];
-    const updates = Object.keys(fields).filter(field => validFields.includes(field));
-
-    if (updates.length === 0) {
-        return res.status(400).send('No valid fields to update.');
-    }
-
-    const query = `UPDATE breeds SET ${updates.map(field => `${field} = ?`).join(', ')} WHERE id = ?`;
-    const values = updates.map(field => fields[field]);
-    values.push(id);
-
-    const stmt = db.prepare(query);
-    stmt.run(values, function (err) {
-        if (err) {
-            res.status(500).send('Error updating breed');
-        } else if (this.changes === 0) {
-            res.status(404).send('Breed not found');
-        } else {
-            res.json({ id, ...fields });
         }
     });
 });
@@ -123,7 +73,6 @@ app.patch('/breeds/:id', (req, res) => {
 // API endpoint to delete a breed
 app.delete('/breeds/:id', (req, res) => {
     const { id } = req.params;
-
     const stmt = db.prepare('DELETE FROM breeds WHERE id = ?');
     stmt.run(id, function (err) {
         if (err) {
